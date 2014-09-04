@@ -795,7 +795,7 @@ namespace hyde
 #pragma comment(lib, "XInput.lib")      // gamepad360
 #pragma comment(lib, "user32.lib")      // GetAsyncKeyState [...]
 
-#include <manymouse.h>
+#include "deps/manymouse/manymouse.h"
 
 namespace hyde
 {
