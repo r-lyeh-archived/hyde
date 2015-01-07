@@ -1550,9 +1550,10 @@ namespace hyde
 
         protected:
             int ix, iy;
+            bool check_console_window;
 
         public:
-                 mouse( const size_t &_id ) :
+                 mouse( const size_t &_id, bool check_console_window = false ) :
                     id(_id), ix(0), iy(0),
               flags( 5 ), buttons( 3 ), coordinates( 5 ),
                     left( buttons[ LEFT ] ),
@@ -1568,7 +1569,8 @@ namespace hyde
                   hidden( flags[ HIDDEN ] ),
                  clipped( flags[ CLIPPED ] ),
                 centered( flags[ CENTERED ]),
-               typeof( "hyde::windows::mouse" )
+               typeof( "hyde::windows::mouse" ),
+          check_console_window( check_console_window )
             {
                 if( id >= max_devices )
                 {
@@ -1805,7 +1807,7 @@ namespace hyde
                     HWND hWnd = WindowFromPoint( pPoint );
 
                     // if [ parent window, console window, or kind-of-subchild ] then...
-                    if( hWnd == parentWnd || /* hWnd == GetConsoleWindow() || */ GetWindowLongPtr(hWnd, GWLP_WNDPROC) )
+                    if( hWnd == parentWnd || (hWnd == GetConsoleWindow() && check_console_window) || GetWindowLongPtr(hWnd, GWLP_WNDPROC) )
                     {
                         // point inside any of our windows
                         is_hover = true;
