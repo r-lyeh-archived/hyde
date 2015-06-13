@@ -835,7 +835,7 @@ namespace hyde
             // http://www.gnu-darwin.org/www001/src/ports/graphics/gephex/work/gephex-0.4.3/util/src/libjoystick/win32joystickdriver.cpp
             // http://www.gnu-darwin.org/www001/src/ports/graphics/gephex/work/gephex-0.4.3/util/src/libjoystick/
 
-            joystick( size_t id )
+            joystick( unsigned id )
             {
                 assert( id <  2 && "invalid joystick id" ); /* // nt [0.. 1]
                 assert( id < 16 && "invalid joystick id" ); */ // xp [0..15]
@@ -943,7 +943,7 @@ namespace hyde
             private:
 
                 XINPUT_STATE state;
-                size_t id;
+                DWORD id;
 
             public:
 
@@ -984,7 +984,7 @@ namespace hyde
 
                 gamepad *master;
 
-            gamepad( const size_t &_id ) :
+            gamepad( const unsigned &_id ) :
                 id(_id),
                 keymap(47),
                 rumble(2),
@@ -1241,7 +1241,7 @@ namespace hyde
 
         class keyboard //, public hyde::enums::keyboard
         {
-            size_t id;
+            DWORD id;
 
         public:
 
@@ -1271,7 +1271,7 @@ namespace hyde
 
             keyboard *master;
 
-            keyboard( const size_t &_id )
+            keyboard( const unsigned &_id )
 #if 1
             :
 #else
@@ -1468,7 +1468,7 @@ namespace hyde
 
                 //GetKeyboardState( (PBYTE)&keymap ) )
 
-                for( size_t i = 0; i < 256; ++i )
+                for( int i = 0; i < 256; ++i )
                 {
                     SHORT key = GetAsyncKeyState( i );
                     keymap[ i ].set( key & 0x8000 ? 0.5f : 0.f );
